@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="/static/jquery-3.3.1.js"></script>
+    <link href="/static/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <script src="/static/bootstrap/js/bootstrap.js"></script>
+    <meta charset="UTF-8">
+<script language="JavaScript">
+
+</script>
+    <title>查看部门</title>
+</head>
+<style>
+    .detail-table {
+        font-size: 13px;
+        table-layout: fixed;
+    }
+
+    .title-col {
+        width: 14%;
+        text-align: right;
+        border-right: 1px;
+        border-right-color: lightgrey;
+        border-right-style: solid;
+    }
+    .link{
+        margin: auto;
+    }
+    #deptable {
+        width: 60%;
+        margin: 0 auto;
+    }
+</style>
+<body>
+<div class="panel-group" id="accordion">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse"
+                href="#collapseOne">
+                部门信息
+                </a>
+            </h4>
+        </div>
+        {% if dep %}
+        <div id="collapseOne" class="panel-collapse collapse in">
+            <div class="panel-body">
+
+                <table class="table table-striped detail-table">
+            <tr class="table table-striped detail-table">
+                <td class="title-col"><b>部门名称</b></td>
+                <td>{{dep.name}}</td>
+                <td class="title-col"><b>负责人</b></td>
+                <td>{{dep.director}}</td>
+            </tr>
+            <tr>
+                <td class="title-col"><b>创建时间</b></td>
+                <td>{{dep.createTime}}</td>
+            </tr>
+            <tr>
+                <td class="title-col"><b>简介</b></td>
+                <td colspan="3">{{dep.info}}</td>
+            </tr>
+        </table>
+
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse"
+                href="#collapseTwo">
+                职位一览
+            </a>
+            </h4>
+        </div>
+        <div id="collapseTwo" class="panel-collapse collapse">
+        <div class="panel-body">
+            <table class="table table-striped detail-table">
+                <tr class="table table-striped detail-table">
+                    <td>职位名</td><td>创建时间</td><td>简介</td>
+                </tr>
+                {% if jobs %}
+                {% for job in jobs %}
+                <tr>
+                    <td><a class="link" href="/ncusc/hr/job/{{job.id}}/update" target="_parent">{{job.name}}</a></td><td>{{job.createTime}}</td><td>{{job.info}}</td>
+                </tr>
+                {% endfor %}
+                {% endif %}
+
+            </table>
+        </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse"
+                href="#collapseThree">
+                员工一览
+                </a>
+            </h4>
+        </div>
+        <div id="collapseThree" class="panel-collapse collapse">
+            <div class="panel-body">
+                <table class="table table-striped detail-table">
+                    <tr class="table table-striped detail-table">
+                        <td>姓名</td><td>性别</td><td>职位</td><td>职称</td><td>学位</td>
+                    </tr>
+                    {% if staffs %}
+                    {% for staff in staffs %}
+                    <tr class="table table-striped detail-table">
+                        <td><a class="link" href="/ncusc/hr/allstaff/{{staff.id}}/detail" target="_parent">{{staff.personal_name}}</a></td><td>{{staff.personal_gender}}</td>
+                        <td>{{staff.work_duty}}</td><td>{{staff.work_title}}</td><td>{{staff.edu_grade}}</td>
+                    </tr>
+                    {% endfor %}
+                    {% endif %}
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

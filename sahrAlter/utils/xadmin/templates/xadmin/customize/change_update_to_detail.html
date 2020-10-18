@@ -1,0 +1,11 @@
+<script>
+    $(document).ready(function () {
+
+            $("[href$='update/']").each(function(){
+    　　　　var url = $(this).attr("href");
+            var newUrl = url.replace(/update/,"detail");
+            $(this).attr("href",newUrl);
+    　　});
+    });
+
+</script>

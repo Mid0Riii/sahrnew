@@ -1,0 +1,32 @@
+<script>
+    /*自定义js, 用于xadmin edit界面二级联动查询*/
+    $(document).ready(function () {
+        $("select[name=work_department]").change(function (e) {
+        var val = $(this).val();
+        console.log(val);
+        var url = "/ncusc/hr/api/JobinDep/" + val;
+        $.ajax({
+            type: "get",
+            url: url,
+            async: true,
+            beforeSend: function (xhr, settings) {
+                xhr.setRequestHeader("X-CSRFToken", $.getCookie("csrftoken"));
+            },
+            success: function (data) {
+                console.log(data.jobs.length);
+                $("select[name=work_duty]")[0].selectize.clearOptions(); //二级select清空选项
+                for (var i = 0; i < data.jobs.length; i++) {
+                    $("select[name=work_duty]")[0].selectize.addOption({text: data.jobs[i], value: data.id[i], $order: i + 1}); //添加数据
+                }
+            },
+            error: function (xhr, textStatus) {
+                console.log(xhr);
+                console.log(textStatus);
+            }
+        })
+
+    });
+    });
+
+
+</script>

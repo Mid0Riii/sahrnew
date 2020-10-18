@@ -1,0 +1,9 @@
+from .base import *
+
+DEBUG=True
+
+DINGLOGINAPPID = "dingoa2lwgjotltr4zrlmh"
+DINGLOGINAPPSECRET="QHwsP0NvOS4ibNFQjlS7FHb2BselT-aLkJV-SPgRpQVGvDTK-LL3UhP7pv3jvr9y"
+DINGAPPID='ding4m7g2s05lqp5xzx0'
+DINGAPPSECRET="XbQcHej4gwZswpx9EReUKtQTYKj_F7MP6br6OgFix-9HdKbWjBKop8wOO2GEp1fP"
+ALLOWED_HOSTS = ['*',]

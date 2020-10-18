@@ -1,0 +1,164 @@
+<html lang="en">
+<head>
+    <script src="/static/jquery-3.3.1.js"></script>
+    <link href="/static/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <script src="/static/bootstrap/js/bootstrap.js"></script>
+    <meta charset="UTF-8">
+</head>
+<style>
+    .detail-table {
+        font-size: 13px;
+        table-layout: fixed;
+    }
+
+    .title-col {
+        width: 14%;
+        text-align: right;
+        border-right: 1px;
+        border-right-color: lightgrey;
+        border-right-style: solid;
+    }
+</style>
+<script>
+</script>
+<body>
+<!--<h1>这是iframe</h1>-->
+<div>
+    <table class="table table-striped detail-table">
+        {% if dic %}
+        <tr class="table table-striped detail-table">
+        <tr>
+            <td class="title-col"><b>姓名</b></td>
+            <td>{{dic.name}}</td>
+            <td class="title-col"><b>性别</b></td>
+            <td colspan="2">{{dic.gender}}</td>
+            <td rowspan="6" ><img  style="width: 160px;height: 210px;" src="{{dic.avatar}}" alt="员工照片"></td>
+
+        </tr>
+        <tr>
+            <td class="title-col"><b>出生年月</b></td>
+            <td>{{dic.birth_date}}</td>
+            <td class="title-col"><b>入职日期</b></td>
+            <td colspan="2">{{dic.enter_date}}</td>
+
+        </tr>
+        <tr>
+            <td class="title-col"><b>身份证号</b></td>
+            <td>{{dic.id_num}}</td>
+            <td class="title-col"><b>聘用方式</b></td>
+            <td colspan="2">{{dic.hire_method}}</td>
+
+
+        </tr>
+        <tr>
+
+            <td class="title-col"><b>是否缴纳社保</b></td>
+            <td colspan="1">{{dic.soc_ins}}</td>
+            <td class="title-col"><b>社保卡号</b></td>
+            <td colspan="2">{{dic.soc_ins_id}}</td>
+
+
+        </tr>
+        <tr>
+            <td class="title-col"><b>部门</b></td>
+            <td >{{dic.department}}</td>
+            <td class="title-col"><b>行政职务</b></td>
+            <td colspan="2">{{dic.duty}}</td>
+
+
+
+        </tr>
+        <tr>
+
+            <td class="title-col"><b>职称</b></td>
+            <td>{{dic.title}}</td>
+            <td class="title-col"><b>职称评定时间</b></td>
+            <td colspan="2">{{dic.set_rank_date}}</td>
+        </tr>
+        <tr>
+            <td class="title-col"><b>院编职称评定时间</b></td>
+            <td>{{dic.set_rank_aca_date}}</td>
+
+            <td class="title-col"><b>最高学历</b></td>
+            <td>{{dic.edu_background}}</td>
+            <td class="title-col"><b>最高学位</b></td>
+            <td>{{dic.edu_grade}}</td>
+
+
+        </tr>
+        <tr>
+            <td class="title-col"><b>婚姻状况</b></td>
+            <td>{{dic.is_marry}}</td>
+            <td class="title-col"><b>民族</b></td>
+            <td>{{dic.folk}}</td>
+            <td class="title-col"><b>政治面貌</b></td>
+            <td>{{dic.status}}</td>
+
+        </tr>
+        <tr>
+            <td class="title-col"><b>岗位</b></td>
+            <td>{{dic.position}}</td>
+            <td class="title-col"><b>人才市场挂编</b></td>
+            <td>{{dic.on_market}}</td>
+            <td class="title-col"><b>职务聘任时间</b></td>
+            <td>{{dic.duty_hire_date}}</td>
+        </tr>
+        <tr>
+            <td class="title-col"><b>户籍地址</b></td>
+            <td colspan="5">{{dic.reg_location}}</td>
+
+        </tr>
+        <tr>
+            <td class="title-col"><b>现居住地址</b></td>
+            <td colspan="5">{{dic.current_location}}</td>
+        </tr>
+        <tr>
+            <td class="title-col"><b>电话</b></td>
+            <td>{{dic.phone}}</td>
+            <td class="title-col"><b>其他联系方式</b></td>
+            <td colspan="3">{{dic.phone_other}}</td>
+        </tr>
+        <tr>
+            <td class="title-col"><b>联系人</b></td>
+            <td >{{dic.emer_people}}</td>
+            <td class="title-col"><b>紧急电话</b></td>
+            <td colspan="3">{{dic.emer_phone}}</td>
+        </tr>
+        <tr>
+            <td class="title-col"><b>备注</b></td>
+            <td colspan="5">{{dic.more}}</td>
+        </tr>
+
+        <tr>
+            <td class="title-col"><b>学习经历</b></td>
+            <td colspan="5">{{dic.learn_exp}}</td>
+        </tr>
+        <tr>
+            <td class="title-col"><b>专科毕业院校及时间</b></td>
+            <td colspan="5">{{dic.edu_collage_school}}</td>
+        </tr>
+        <tr>
+            <td class="title-col"><b>本科毕业院校及时间</b></td>
+            <td colspan="5">{{dic.edu_undergraduate_school}}</td>
+        </tr>
+        <tr>
+            <td class="title-col"><b>硕士毕业院校及时间</b></td>
+            <td colspan="5">{{dic.edu_master_school}}</td>
+        </tr>
+        <tr>
+            <td class="title-col"><b>博士毕业院校及时间</b></td>
+            <td colspan="5">{{dic.edu_doctor_school}}</td>
+        </tr>
+        <tr>
+            <td class="title-col"><b>博士后毕业院校及时间</b></td>
+            <td colspan="5">{{dic.edu_postdoctor_school}}</td>
+        </tr>
+    </table>
+</div>
+<!--<div class="navbar-btn pull-right hide-xs">-->
+<!--    <a href="/xadmin/hr/staff/{{dic.id}}/update/" class="btn btn-primary"><i class="fa fa-pencil"></i> <span>编辑</span></a>-->
+<!--    <a href="/xadmin/hr/staff/{{dic.id}}/delete/" class="btn btn-danger"><i class="fa fa-trash-o"></i> <span>删除</span></a>-->
+<!--</div>-->
+{% endif %}
+</body>
+</html>

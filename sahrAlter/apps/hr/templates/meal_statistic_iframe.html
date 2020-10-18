@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="/static/jquery-3.3.1.js"></script>
+    <link href="/static/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <script src="/static/bootstrap/js/bootstrap.js"></script>
+    <script src="/static/echarts.js"></script>
+    <script src="/static/jquery.cookie.js"></script>
+    <script>
+        function setChart(data) {
+            total = data.total.slice(0,-1);
+            var myChart = echarts.init(document.getElementById('main'));
+            // 指定图表的配置项和数据
+            var option = {
+                title: {
+                    text: '餐补统计图'
+                },
+                tooltip: {},
+                legend: {
+                    data: ['金额']
+                },
+                xAxis: {
+                    data: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"]
+                },
+                yAxis: {},
+                series: [{
+                    name: '金额',
+                    type: 'bar',
+                    data: total,
+                }]
+            };
+            // 使用刚指定的配置项和数据显示图表。
+            myChart.setOption(option);
+
+        }
+
+        function setPersonalRow(data) {
+            var initTable = "<table id=\"personalData\" class=\"table table-striped detail-table\">\n" +
+                "        <tr>\n" +
+                "            <td><b>姓名</b></td>\n" +
+                "            <td><b>一月</b</td>\n" +
+                "            <td><b>二月</b></td>\n" +
+                "            <td><b>三月</b></td>\n" +
+                "            <td><b>四月</b></td>\n" +
+                "            <td><b>五月</b></td>\n" +
+                "            <td><b>六月</b></td>\n" +
+                "            <td><b>七月</b></td>\n" +
+                "            <td><b>八月</b></td>\n" +
+                "            <td><b>九月</b></td>\n" +
+                "            <td><b>十月</b></td>\n" +
+                "            <td><b>十一月</b></td>\n" +
+                "            <td><b>十二月</b></td>\n" +
+                "            <td><b>合计</b></td>\n" +
+                "        </tr>\n" +
+                "\n" +
+                "    </table>";
+            $("#collapsePersonal").append(initTable);
+            var monthTotal= new Array();
+            var monthTotalRow = $("<tr></tr>").attr({id:"monthTotal"});
+            for (var i = 0; i < data.staff.length; i++) {
+                var name = data.staff[i].name;
+                var money = data.staff[i].money;
+                var total = data.staff[i].total;
+                var row = $("<tr></tr>").attr({id: name});
+                var Namecol = $("<td></td>").text(name).css('fontWeight', 'bold');
+                var Totalcol = $("<td></td>").text(total);
+                $("#personalData").append(row);
+                $("#" + name).append(Namecol);
+                for (var j = 0; j < money.length; j++) {
+                    var col = $("<td></td>").text(money[j]);
+                    $("#" + name).append(col);
+                }
+                $("#" + name).append(Totalcol);
+            }
+            $("#personalData").append(monthTotalRow);
+            $("#monthTotal").append("<td><b>合计</b></td>");
+            for(var i =  0;i<data.total.length;i++){
+                var col = $("<td></td>").text(data.total[i]);
+                $("#monthTotal").append(col);
+            }
+        }
+
+        $(document).ready(function () {
+            url = "/ncusc/hr/api/meal/" + $("#yearFilter").val();
+            $.ajax({
+                type: "get",
+                url: url,
+                async: true,
+                //找不到getCookie方法
+                // beforeSend: function (xhr, settings) {
+                //     xhr.setRequestHeader("X-CSRFToken", $.getCookie("csrftoken"));
+                // },
+                success: function (data) {
+                    console.log(data.staff[0].money);
+                    setPersonalRow(data);
+                    setChart(data);
+                },
+                error: function (xhr, textStatus) {
+                    console.log(xhr);
+                    console.log(textStatus);
+                }
+            });
+            $("#yearFilter").change(function () {
+                $("#personalData").remove();
+                url = "/ncusc/hr/api/meal/" + $(this).val();
+                $.ajax({
+                    type: "get",
+                    url: url,
+                    async: true,
+                    //找不到getCookie方法
+                    // beforeSend: function (xhr, settings) {
+                    //     xhr.setRequestHeader("X-CSRFToken", $.getCookie("csrftoken"));
+                    // },
+                    success: function (data) {
+                        console.log(data.staff[0].money);
+                        setPersonalRow(data);
+                        setChart(data);
+                    },
+                    error: function (xhr, textStatus) {
+                        console.log(xhr);
+                        console.log(textStatus);
+                    }
+                })
+            })
+        });
+
+        // 基于准备好的dom，初始化echarts实例
+    </script>
+</head>
+<body>
+
+
+<div class="dropdown">
+    {% if rangeYear %}
+    <select id="yearFilter" class="form-control selectized">
+        {% for year in rangeYear %}
+        <option selected="selected">{{year}}</option>
+        {% endfor %}
+    </select>
+</div>
+<div class="panel-group" id="accordion">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse"
+                   href="#collapseOne">
+                    年度统计图
+                </a>
+            </h4>
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse in">
+            <div class="panel-body">
+                <div id="main" style="width: 800px;height:400px;"></div>
+            </div>
+        </div>
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse"
+                   href="#collapseTwo">
+                    统计表
+                </a>
+            </h4>
+        </div>
+        <div id="collapseTwo" class="panel-collapse collapse">
+            <div id="collapsePersonal" class="panel-body">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">-->
+<!--    选择年份-->
+<!--    <span class="caret"></span>-->
+<!--  </button>-->
+<!--    -->
+<!--  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">-->
+<!--    -->
+<!--      <li><a href="#">{{year}}</a></li>-->
+
+<!--  </ul>-->
+
+{% endif %}
+
+
+</body>
+
+</html>

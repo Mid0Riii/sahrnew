@@ -1,0 +1,154 @@
+<script>
+    $(document).ready(function () {
+        $("#reset").attr({href:window.location.pathname});
+        $("#submit").mouseover(function () {
+            let url = '?';
+            $('input[type=radio]:checked').each(function () {
+                console.log('选中的字段' + $(this).val());
+                url+=$(this).val().slice(1);
+                url+="&";
+            });
+            url = window.location.pathname + url;
+            $(this).attr({href: url});
+        });
+        $("#filter-menu").children("li").first().children('ul').children('li').each(function () {
+            nhref = $(this).children('a').attr("href");
+            ntext = $(this).children('a').text();
+            var newDepChoice = $("<input>").attr({value:nhref,type:"radio"});
+            var newDepSpan = $("<span></span>").text(ntext);
+            $("#dep").append(newDepChoice).append(newDepSpan);
+        })
+    });
+</script>
+<style>
+    .title-col {
+        width: 120px;
+        font-size: 14px;
+        text-align: left;
+        border-top: 1px;
+        border-top-color: lightgrey;
+        border-top-style: solid;
+
+
+    }
+
+    .choice-col {
+        border-top-style: solid;
+        border-top-width: 0.5px;
+        border-top-color: lightgrey;
+    }
+
+    .choice-row {
+        height: 40px;
+
+    }
+</style>
+<div>
+
+    <div id="filter-group" class="in" style="height: auto;">
+        <form id="filter-form">
+            <table id="filter-table" style="width: 100%">
+                <tr id="部门" class="choice-row">
+                    <td class="title-col">部门</td>
+                    <td class="choice-col" id="dep" ></td>
+                </tr>
+                <tr class="choice-row">
+                    <td class="title-col">政治面貌</td>
+                    <td class="choice-col"><input type="radio" value="?"
+                               name="政治面貌"
+                               class="choice"><span>全部</span>
+                        <input type="radio"
+                               value="?_p_personal_status__exact=%E4%B8%AD%E5%85%B1%E5%85%9A%E5%91%98"
+                               name="政治面貌" class="choice"><span>中共党员</span>
+                        <input type="radio"
+                               value="?_p_personal_status__exact=%E4%B8%AD%E5%85%B1%E9%A2%84%E5%A4%87%E5%85%9A%E5%91%98"
+                               name="政治面貌" class="choice"><span>中共预备党员</span>
+                        <input type="radio"
+                               value="?_p_personal_status__exact=%E5%85%B1%E9%9D%92%E5%9B%A2%E5%91%98"
+                               name="政治面貌" class="choice"><span>共青团员</span>
+                        <input type="radio"
+                               value="?_p_personal_status__exact=%E6%B0%91%E9%9D%A9%E5%85%9A%E5%91%98"
+                               name="政治面貌" class="choice"><span>民革党员</span>
+                        <input type="radio"
+                               value="?_p_personal_status__exact=%E6%B0%91%E7%9B%9F%E5%85%9A%E5%91%98"
+                               name="政治面貌" class="choice"><span>民盟党员</span>
+                        <input type="radio"
+                               value="?_p_personal_status__exact=%E6%B0%91%E5%BB%BA%E4%BC%9A%E5%91%98"
+                               name="政治面貌" class="choice"><span>民建会员</span>
+                        <input type="radio"
+                               value="?_p_personal_status__exact=%E6%B0%91%E8%BF%9B%E4%BC%9A%E5%91%98"
+                               name="政治面貌" class="choice"><span>民进会员</span>
+                        <input type="radio"
+                               value="?_p_personal_status__exact=%E5%86%9C%E5%B7%A5%E5%85%9A%E5%85%9A%E5%91%98"
+                               name="政治面貌" class="choice"><span>农工党党员</span>
+                        <br>
+                        <input type="radio"
+                               value="?_p_personal_status__exact=%E8%87%B4%E5%85%AC%E5%85%9A%E5%85%9A%E5%91%98"
+                               name="政治面貌" class="choice"><span>致公党党员</span>
+                        <input type="radio"
+                               value="?_p_personal_status__exact=%E4%B9%9D%E4%B8%89%E5%AD%A6%E7%A4%BE%E7%A4%BE%E5%91%98"
+                               name="政治面貌" class="choice"><span>九三学社社员</span>
+                        <input type="radio"
+                               value="?_p_personal_status__exact=%E5%8F%B0%E7%9B%9F%E7%9B%9F%E5%91%98"
+                               name="政治面貌" class="choice"><span>台盟盟员</span>
+                        <input type="radio"
+                               value="?_p_personal_status__exact=%E6%97%A0%E5%85%9A%E6%B4%BE%E4%BA%BA%E5%A3%AB"
+                               name="政治面貌" class="choice"><span>无党派人士</span>
+                    </td>
+                </tr>
+                <tr class="choice-row">
+                    <td class="title-col">性别</td>
+                    <td class="choice-col">
+                        <input type="radio" value="?" name="性别" class="choice"><span>全部</span>
+                        <input type="radio" value="?_p_personal_gender__exact=%E5%A5%B3" name="性别" class="choice"><span>女</span>
+                        <input type="radio" value="?_p_personal_gender__exact=%E7%94%B7" name="性别" class="choice"><span>男</span>
+                    </td>
+                </tr>
+                <tr class="choice-row" id="出生日期">
+                    <td class="title-col">出生日期</td>
+                    <td class="choice-col"></td>
+
+                </tr>
+                <tr class="choice-row">
+                    <td class="title-col">学位</td>
+                    <td class="choice-col"><input type="radio" value="?" name="学位" class="choice"><span>全部</span>
+                        <input type="radio" value="?_p_edu_grade__exact=%E6%9C%AC%E7%A7%91" name="学位"
+                               class="choice"><span>本科</span>
+                        <input type="radio" value="?_p_edu_grade__exact=%E7%A1%95%E5%A3%AB" name="学位"
+                               class="choice"><span>硕士</span>
+                        <input type="radio" value="?_p_edu_grade__exact=%E5%8D%9A%E5%A3%AB" name="学位"
+                               class="choice"><span>博士</span>
+                        <input type="radio" value="?_p_edu_grade__exact=%E4%B8%93%E7%A7%91" name="学位"
+                               class="choice"><span>专科</span>
+                        <input type="radio" value="?_p_edu_grade__exact=%E5%85%B6%E4%BB%96" name="学位"
+                               class="choice"><span>其他</span>
+                    </td>
+                </tr>
+                <tr class="choice-row">
+                    <td class="title-col">是否缴纳社保</td>
+                    <td class="choice-col">
+                        <input type="radio" value="?" name="是否缴纳社保" class="choice"><span>全部</span>
+                        <input type="radio" value="?_p_personal_soc_ins__exact=%E6%98%AF" name="是否缴纳社保"
+                               class="choice"><span>是</span>
+                        <input type="radio" value="?_p_personal_soc_ins__exact=%E5%90%A6" name="是否缴纳社保"
+                               class="choice"><span>否</span>
+                    </td>
+                </tr>
+            </table>
+        </form>
+                    <div style="margin-bottom: 10px;margin-top: 5px;margin-left: 80%">
+                        <table>
+                            <tbody>
+                            <tr>
+                                <td style="padding-right: 30px">
+
+                                    <a class="btn btn-success" href="" id="submit">提交</a></td>
+                                <td>
+                                    <a id="reset" class="btn btn-danger">重置</a></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+        <!--        </form>-->
+    </div>
+</div>

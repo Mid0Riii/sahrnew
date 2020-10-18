@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="/static/jquery-3.3.1.js"></script>
+    <link href="/static/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <script src="/static/bootstrap/js/bootstrap.js"></script>
+    <meta charset="UTF-8">
+    <title>查看签单</title>
+</head>
+<style>
+    .sign-container {
+        /*color: red;*/
+        margin-left: 10%;
+        margin-right: 10%;
+        text-align: center;
+    }
+
+    .title-col {
+        color: red;
+        width: 20%;
+        text-align: left;
+        font-weight: bold;
+        border-right: 1px;
+        border-right-color: red;
+        border-right-style: solid;
+        border-bottom: 1px;
+        border-bottom-color: red;
+        border-bottom-style: solid;
+    }
+    .contain-col{
+        border-bottom: 1px;
+        border-bottom-color: red;
+        border-bottom-style: solid;
+    }
+    table,table tr th, table tr td { border:1px solid red; }
+        table { width: 200px; min-height: 25px; line-height: 25px; text-align: center; border-collapse: collapse;}
+    td{padding: 1%}
+</style>
+<body>
+{% if dic %}
+<div class="sign-container">
+    <h2 style="color: red">南昌大学公文会签单</h2>
+        <table style="width: 100%;border-style: solid;border-width: 2px;border-color: red">
+            <tr>
+                <td class="title-col">标题</td>
+                <td class="contain-col" colspan="3"><p>{{ dic.title }}</p></td>
+            </tr>
+            <tr>
+                <td class="title-col">行文单位</td>
+                <td class="contain-col" style="width: 30%;color: #0f0f0f">软件学院</td>
+                <td class="title-col">行文日期</td>
+                <td class="contain-col"><p>{{ dic.createDate }}</p></td>
+            </tr>
+            <tr>
+                <td class="title-col">签单负责人</td>
+                <td class="contain-col"  colspan="3"><p>{{ dic.director }}</p></td>
+            </tr>
+            <tr>
+                <td class="title-col">事项内容</td>
+                <td colspan="3"><p>{{ dic.info }}</p></td>
+            </tr>
+            <tr>
+                <td class="title-col" style="height: 50px">相关附件</td>
+                <td colspan="3"></td>
+            </tr>
+            <tr>
+                <td class="title-col">部门负责人</td>
+                <td class="contain-col"  colspan="3"><p>{{ dic.dep_person }}</p></td>
+            </tr>
+            <tr>
+                <td colspan="4" class="title-col" style="text-align: center">审批意见</td>
+            </tr>
+            <tr>
+                <td class="title-col">部门负责人意见</td>
+                <td class="contain-col"><p>{{ dic.dep_opinion }}</p></td>
+                <td class="title-col">审批结果</td>
+                <td><p>{{ dic.dep_judge }}</p></td>
+            </tr>
+            <tr>
+                <td class="title-col">两办负责人意见</td>
+                <td class="contain-col"><p>{{ dic.office_opinion }}</p></td>
+                <td class="title-col">审批结果</td>
+                <td><p>{{ dic.office_judge }}</p></td>
+            </tr>
+            <tr>
+                <td class="title-col">相关部门会签意见</td>
+                <td class="contain-col"><p>{{ dic.relate_opinion }}</p></td>
+                <td class="title-col">审批结果</td>
+                <td><p>{{ dic.relate_judge }}</p></td>
+            </tr>
+            <tr>
+                <td class="title-col">分管校领导意见</td>
+                <td class="contain-col"><p>{{ dic.vice_opinion }}</p></td>
+                <td class="title-col">审批结果</td>
+                <td><p>{{ dic.vice_judge }}</p></td>
+            </tr>
+            <tr>
+                <td class="title-col">校领导会签意见</td>
+                <td class="contain-col"><p>{{ dic.aca_opinion }}</p></td>
+                <td class="title-col">审批结果</td>
+                <td>
+                    <p>{{ dic.aca_judge }}</p>
+                </td>
+            </tr>
+        </table>`
+
+</div>
+{% endif %}
+</body>
+</html>

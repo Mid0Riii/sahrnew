@@ -1,0 +1,34 @@
+<script src="/static/echarts.js"></script>
+<script>
+    function chartON(){
+        $(".content-toolbar").hide();
+        $(".pagination ").hide();
+        $("#changelist-form").hide();
+        $("#statistic").show();
+    }
+    function chartOFF(){
+        $(".content-toolbar").show();
+        $(".pagination ").show();
+        $("#changelist-form").show();
+        $("#statistic").hide();
+    }
+    $(document).ready(function () {
+        var iframe="<iframe id='statistic' style='display: none;width: 100%;\n" +
+            "        height: 500px;' class=\"detail_table\" scrolling=\"auto\" frameborder=\"0\" src='statistic'>";
+        $("#content-block").append(iframe);
+        $("#showStatistic").click(function () {
+        //$(this).addClass("active");
+        if($(this).hasClass("active")){
+            $(this).removeClass("active");
+            chartOFF();
+        }else{
+            $(this).addClass("active");
+            chartON();
+        }
+    });
+
+
+    });
+</script>
+<button id="showStatistic" class=" btn btn-info">餐补统计</button>
+

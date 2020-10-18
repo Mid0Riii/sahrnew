@@ -1,0 +1,30 @@
+<style>
+    .button{
+        margin-right: 8px;
+        /*font-family: "微软雅黑";*/
+        font-size: 12px;
+        /*padding: 4px;*/
+        width: 45%;
+        height: 30px;
+    }
+    .operationcol{
+        width: 7%;
+    }
+</style>
+<script>
+    $(document).ready(function () {
+        var operationHeadCol = $("<th></th>").attr({scope:"col",class:"sortable operationcol"}).text("操作");
+    $(".table-bordered").children('thead').find('tr').append(operationHeadCol);
+
+    $(".table-bordered").children('tbody').find('tr').each(function () {
+        var id = $(this).find('a').attr("href").slice(0,-7);
+        console.log("id="+id);
+        var operationHeadCol = $("<th></th>").attr({scope:"col",class:"sortable",});
+        var detailButton = $("<a></a>").attr({class:"btn btn-info button",href:id+"detail/",title:"查看签单"}).text('查看');
+        var updateButton = $("<a></a>").attr({class:"btn btn-primary button",href:id+"update/",title:"审批当前签单"}).text('审批');
+        $(operationHeadCol).append(detailButton,updateButton);
+        $(this).append(operationHeadCol);
+    });
+    });
+
+</script>
